@@ -18,6 +18,13 @@
     <header>
         {{ include('menu/entete.html.twig') }}
     </header>
+    {% for label, messages in app.flashes() %}
+    {% for message in messages %}
+        <div class="flash flash-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% endfor %}
 <hr>
     <main>
 

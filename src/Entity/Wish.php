@@ -5,8 +5,11 @@ namespace App\Entity;
 use App\Repository\WishRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 #[ORM\Entity(repositoryClass: WishRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Wish
 {
     #[ORM\Id]
@@ -14,12 +17,33 @@ class Wish
     #[ORM\Column]
     private ?int $id = null;
 
+
     #[ORM\Column(length: 250)]
+    #[Assert\NotBlank(message:"Title is mandatory !")]
+    #[Assert\Length(
+        min: 2,
+        max: 250,
+        minMessage: "minimum {{ limit }} characters !",
+        maxMessage: "maximum {{ limit }} characters !",
+    )]
     private ?string $title = null;
 
+    #[Assert\Length(
+        min: 2,
+        max: 1500,
+        minMessage: "minimum {{ limit }} characters !",
+        maxMessage: "maximum {{ limit }} characters !",
+    )]
     #[ORM\Column(length: 1500)]
     private ?string $description = null;
 
+    #[Assert\NotBlank(message:"author is mandatory !")]
+    #[Assert\Length(
+        min: 2,
+        max: 50,
+        minMessage: "minimum {{ limit }} characters !",
+        maxMessage: "maximum {{ limit }} characters !",
+    )]
     #[ORM\Column(length: 50)]
     private ?string $author = null;
 
@@ -92,5 +116,11 @@ class Wish
         $this->dateCreated = $dateCreated;
 
         return $this;
+    }
+
+    #[ORM\PrePersist]
+    public function setNewWish(){
+        $this->setDateCreated(new \DateTime());
+        $this->setIsPublished(true);
     }
 }

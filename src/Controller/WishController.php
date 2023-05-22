@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Wish;
+use App\Form\WishType;
 use App\Repository\WishRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 #[Route('/wish', name: 'wish_')]
 class WishController extends AbstractController
@@ -29,6 +32,31 @@ class WishController extends AbstractController
 
 
         return $this->render('wish/show.html.twig',['wish'=>$wish]
+        );
+    }
+    #[Route('/add', name: 'add')]
+    public function add(Request $request, WishRepository $wishRepository): Response
+    {
+        $wish = new Wish();
+
+        $wishform = $this->createForm(WishType::class, $wish);
+
+        $wishform->handleRequest($request);
+        if ($wishform->isSubmitted() && $wishform->isValid()){
+
+
+            //$wish->setDateCreated(new \DateTime());
+            //$wish->setIsPublished(true);
+            $wishRepository->save($wish, true);
+            $this->addFlash('success', 'Wish added !');
+            dump($wish);
+            return $this->redirectToRoute('wish_detail', ['id' => $wish->getId()]);
+        }
+
+
+        return $this->render('wish/add.html.twig', [
+            'wishForm' => $wishform->createView()
+            ]
         );
     }
 }
