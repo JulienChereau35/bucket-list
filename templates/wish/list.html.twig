@@ -9,16 +9,15 @@
     <h2>Voici ma Liste de souhaits !</h2>
 
     <section>
-    {% for w in wish %}
-        <article>
-
-            <a href="{{ path('wish_detail', {'id' : w.id})  }}" title ="view details of {{ w.title }}"> {{ w.title }}</a>
-
-        </article>
-        <br>
-    {% endfor %}
-
-
+        {% for w in wish %}
+            <article>
+                <div class="liste">
+                    <a href="{{ path('wish_detail', {'id' : w.id}) }}"
+                       title="view details of {{ w.title }}"> {{ w.title }}</a>
+                </div>
+            </article>
+            <br>
+        {% endfor %}
 
 
     </section>
