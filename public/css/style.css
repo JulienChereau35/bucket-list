@@ -80,6 +80,7 @@ a{
 .liste{
 
     border: thick double dimgray;
+    text-align:center;
 
 }
 label{
@@ -101,4 +102,8 @@ label{
 
 .flash-error {
     background-color: red
+}
+
+.category{
+    font-size: 0.5em;
 }

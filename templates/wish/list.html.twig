@@ -13,7 +13,9 @@
             <article>
                 <div class="liste">
                     <a href="{{ path('wish_detail', {'id' : w.id}) }}"
-                       title="view details of {{ w.title }}"> {{ w.title }}</a>
+                       title="view details of {{ w.title }}"> {{ w.title }}<br>
+                        <div class="category">Category : {{ w.category.name }}</div>
+                    </a>
                 </div>
             </article>
             <br>
