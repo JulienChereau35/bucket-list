@@ -30,6 +30,7 @@ h1, h2, h3, h4 {
     display : flex;
     flex-direction: row;
     list-style-type: none;
+    font-size: 0.7em;
 }
 
 .container {
@@ -106,4 +107,9 @@ label{
 
 .category{
     font-size: 0.5em;
+}
+.bonjour{
+    font-size: 2em !important;
+    flex-direction: row-reverse;
+    font-weight: bold;
 }

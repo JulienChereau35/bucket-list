@@ -44,11 +44,12 @@ class WishController extends AbstractController
     ): Response
     {
         $wish = new Wish();
-
+        $wish->setAuthor($this->getUser()->getUsername());
         $wishform = $this->createForm(WishType::class, $wish);
 
         $wishform->handleRequest($request);
         if ($wishform->isSubmitted() && $wishform->isValid()) {
+
 
             //$wish->setDateCreated(new \DateTime());
             //$wish->setIsPublished(true);
